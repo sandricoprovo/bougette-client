@@ -6,7 +6,8 @@
         "module": "ESNext",
         "lib": [
             "ESNext",
-            "DOM"
+            "DOM",
+            "DOM.Iterable"
         ],
         "moduleResolution": "Node",
         "strict": true,
@@ -18,7 +19,8 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "jsx": "react-jsx"
     },
     "include": [
         "src",
