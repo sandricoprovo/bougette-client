@@ -6,6 +6,7 @@ const LayoutStyled = styled.main`
     min-height: 100vh;
     max-width: var(--max-page-width);
 
+    display: grid;
     grid-template-rows: auto 1fr auto;
 `;
 

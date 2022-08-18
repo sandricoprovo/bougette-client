@@ -4,6 +4,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import Header from './components/Header';
 import Layout from './components/Layout';
 import Footer from './components/Footer';
+import Navigation from './components/Navigation/Navigation';
 
 function App() {
     useEffect(() => {
@@ -14,7 +15,10 @@ function App() {
         <>
             <GlobalStyles />
             <Layout>
-                <Header>Hello World</Header>
+                <Header>
+                    <div>Bougette</div>
+                    <Navigation />
+                </Header>
                 <h1>Hello World</h1>
                 <Footer>Hello Footer</Footer>
             </Layout>
