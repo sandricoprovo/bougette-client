@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const HeaderStyled = styled.header`
     border: 2px solid red;
+    position: relative;
 
     display: flex;
     justify-content: space-between;
