@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
+import { HeaderFont } from '../Typography';
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -9,7 +11,7 @@ const Container = styled.div`
     font-family: var(--font-display);
 
     & > h2 {
-        font-size: 1.5rem;
+        font-size: var(--font-size-lg);
     }
 `;
 
@@ -20,7 +22,9 @@ interface GetStartedProps {
 export default function GetStarted({ children }: GetStartedProps) {
     return (
         <Container>
-            <h2>Want to get worry free money tracking? Get started below.</h2>
+            <HeaderFont tag="h5">
+                Want to get worry free money tracking? Get started below.
+            </HeaderFont>
             {children}
         </Container>
     );

@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 import Hero from '../components/Hero';
 import GetStarted from '../components/HomePage/GetStarted';
-import ButtonContainer from '../components/Buttons/Container';
+import { HeaderFont, Text } from '../components/Typography';
+import { CTAButton, ButtonContainer, LogInButton } from '../components/Buttons';
 
 const Container = styled.div`
     display: grid;
@@ -13,16 +14,18 @@ export default function Home() {
     return (
         <Container>
             <Hero>
-                <h1>Welcome to Bougette</h1>
-                <p>
+                <HeaderFont tag="h2">
+                    Welcome to <br /> Bougette
+                </HeaderFont>
+                <Text>
                     Here you store your money flows so you always know what
                     needs to go where.
-                </p>
+                </Text>
             </Hero>
             <GetStarted>
                 <ButtonContainer>
-                    <button type="button">Get Started</button>
-                    <button type="button">Log In</button>
+                    <CTAButton>Get Started</CTAButton>
+                    <LogInButton>Log In</LogInButton>
                 </ButtonContainer>
             </GetStarted>
         </Container>

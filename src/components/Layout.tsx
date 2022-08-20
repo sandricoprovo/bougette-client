@@ -8,7 +8,7 @@ const LayoutStyled = styled.main`
     padding: 0rem 1.25rem;
 
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto minmax(calc(100vh - 24px), auto) auto;
 `;
 
 interface LayoutProps {
