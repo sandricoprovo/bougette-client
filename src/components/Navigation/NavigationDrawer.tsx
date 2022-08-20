@@ -8,7 +8,7 @@ const NavigationDrawerStyled = styled(motion.nav)`
     padding-top: 1rem;
     height: 88vh;
     width: 100%;
-    top: 20px;
+    top: 88px;
     right: 0;
 
     display: flex;
@@ -59,7 +59,14 @@ export default function NavigationDrawer({
 }: NavigationDrawerProps) {
     return (
         <>
-            <button type="button" onClick={toggleDrawer}>
+            <button
+                type="button"
+                onClick={toggleDrawer}
+                style={{
+                    height: 80,
+                    width: 80,
+                }}
+            >
                 Menu
             </button>
             <AnimatePresence mode="wait">

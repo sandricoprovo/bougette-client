@@ -8,6 +8,7 @@ import { CTAButton, ButtonContainer, LogInButton } from '../components/Buttons';
 const Container = styled.div`
     display: grid;
     align-items: flex-end;
+    grid-template-rows: 50% 42%;
 `;
 
 export default function Home() {
