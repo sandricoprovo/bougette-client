@@ -5,6 +5,8 @@ import Header from './components/Header';
 import Layout from './components/Layout';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation/Navigation';
+// Pages //
+import Home from './pages/Home';
 
 function App() {
     useEffect(() => {
@@ -19,7 +21,7 @@ function App() {
                     <div>Bougette</div>
                     <Navigation />
                 </Header>
-                <h1>Hello World</h1>
+                <Home />
                 <Footer>Hello Footer</Footer>
             </Layout>
         </>
