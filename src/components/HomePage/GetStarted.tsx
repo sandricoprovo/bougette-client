@@ -6,6 +6,11 @@ const Container = styled.div`
     flex-direction: column;
     gap: 2rem;
     padding-bottom: 2rem;
+    font-family: var(--font-display);
+
+    & > h2 {
+        font-size: 1.5rem;
+    }
 `;
 
 interface GetStartedProps {
