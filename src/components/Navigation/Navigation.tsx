@@ -26,24 +26,20 @@ function Navigation() {
         setIsDrawerOpen(!isDrawerOpen);
     }
 
+    const navListItems = ['TEST', 'TEST', 'TEST'].map((item, index) => (
+        <NavigationItem key={index} text={item} />
+    ));
+
     return !isMobileWidth ? (
         <NavigationStyled>
-            <NavigationList>
-                {['TEST', 'TEST', 'TEST'].map((item, index) => (
-                    <NavigationItem key={index} text={item} />
-                ))}
-            </NavigationList>
+            <NavigationList>{navListItems}</NavigationList>
         </NavigationStyled>
     ) : (
         <NavigationDrawer
             isDrawerOpen={isDrawerOpen}
             toggleDrawer={toggleDrawer}
         >
-            <NavigationList>
-                {['TEST', 'TEST', 'TEST'].map((item, index) => (
-                    <NavigationItem key={index} text={item} />
-                ))}
-            </NavigationList>
+            <NavigationList>{navListItems}</NavigationList>
         </NavigationDrawer>
     );
 }
