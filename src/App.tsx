@@ -33,7 +33,6 @@ function App() {
                         />
                         <Route path="*" element={<Page404 />} />
                     </Routes>
-                    <Home />
                     <Footer>Hello Footer</Footer>
                 </Layout>
             </BrowserRouter>

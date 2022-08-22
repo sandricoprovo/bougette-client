@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
+import mockNavLinks from '../../mock/mockNav';
+
 import NavigationItem from './NavigationItem';
 import NavigationDrawer from './NavigationDrawer';
 
@@ -26,8 +28,13 @@ function Navigation() {
         setIsDrawerOpen(!isDrawerOpen);
     }
 
-    const navListItems = ['TEST', 'TEST', 'TEST'].map((item, index) => (
-        <NavigationItem key={index} text={item} />
+    const navListItems = mockNavLinks.map((link, index) => (
+        <NavigationItem
+            key={index}
+            text={link.text}
+            url={link.url}
+            toggleDrawer={toggleDrawer}
+        />
     ));
 
     return !isMobileWidth ? (
