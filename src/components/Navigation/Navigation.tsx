@@ -33,7 +33,7 @@ function Navigation() {
             key={index}
             text={link.text}
             url={link.url}
-            toggleDrawer={toggleDrawer}
+            toggleDrawer={isMobileWidth ? toggleDrawer : undefined}
         />
     ));
 

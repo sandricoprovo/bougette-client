@@ -11,19 +11,15 @@ const NavigationListItemStyled = styled.li`
 interface NavigationListItemProps {
     text: string;
     url: string;
-    toggleDrawer?: () => void;
+    toggleDrawer: (() => void) | undefined;
 }
 
 function NavigationListItem({
     text,
     url,
-    toggleDrawer = undefined,
+    toggleDrawer,
 }: NavigationListItemProps) {
-    return !toggleDrawer ? (
-        <NavigationListItemStyled>
-            <Link to={url}>{text}</Link>
-        </NavigationListItemStyled>
-    ) : (
+    return (
         <NavigationListItemStyled onClick={toggleDrawer}>
             <Link to={url}>{text}</Link>
         </NavigationListItemStyled>
