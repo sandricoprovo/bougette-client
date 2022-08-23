@@ -5,7 +5,7 @@ import { motion, AnimatePresence, Variants } from 'framer-motion';
 const NavigationDrawerStyled = styled(motion.nav)`
     background-color: red;
     position: absolute;
-    padding-top: 1rem;
+    padding: 2rem 1rem;
     height: 88vh;
     width: 100%;
     top: 88px;

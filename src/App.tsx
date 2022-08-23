@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import GlobalStyles from './styles/GlobalStyles';
 import Header from './components/Header';
@@ -6,7 +7,14 @@ import Layout from './components/Layout';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation/Navigation';
 // Pages //
-import Home from './pages/Home';
+import {
+    Home,
+    Auth,
+    Statements,
+    Page404,
+    Statement,
+    PrivateRoute,
+} from './routes';
 
 function App() {
     useEffect(() => {
@@ -16,14 +24,36 @@ function App() {
     return (
         <>
             <GlobalStyles />
-            <Layout>
-                <Header>
-                    <div>Bougette</div>
-                    <Navigation />
-                </Header>
-                <Home />
-                <Footer>Hello Footer</Footer>
-            </Layout>
+            <BrowserRouter>
+                <Layout>
+                    <Header>
+                        <div>Bougette</div>
+                        <Navigation />
+                    </Header>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/auth" element={<Auth />} />
+                        <Route
+                            path="/statements"
+                            element={
+                                <PrivateRoute>
+                                    <Statements />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/statement/:statementId"
+                            element={
+                                <PrivateRoute>
+                                    <Statement />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route path="*" element={<Page404 />} />
+                    </Routes>
+                    <Footer>Hello Footer</Footer>
+                </Layout>
+            </BrowserRouter>
         </>
     );
 }
