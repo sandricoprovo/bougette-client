@@ -14,6 +14,7 @@ import {
     Page404,
     Statement,
     PrivateRoute,
+    ROUTES,
 } from './routes';
 
 function App() {
@@ -31,10 +32,10 @@ function App() {
                         <Navigation />
                     </Header>
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/auth" element={<Auth />} />
+                        <Route path={ROUTES.HOME} element={<Home />} />
+                        <Route path={ROUTES.LOGIN} element={<Auth />} />
                         <Route
-                            path="/statements"
+                            path={ROUTES.STATEMENTS}
                             element={
                                 <PrivateRoute>
                                     <Statements />
@@ -42,7 +43,7 @@ function App() {
                             }
                         />
                         <Route
-                            path="/statement/:statementId"
+                            path={`${ROUTES.STATEMENT}/:statementId`}
                             element={
                                 <PrivateRoute>
                                     <Statement />
