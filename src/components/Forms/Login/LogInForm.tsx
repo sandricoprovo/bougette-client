@@ -5,8 +5,6 @@ import { LogInButton, CancelButton } from '../../Buttons';
 import { HeaderFont } from '../../Typography';
 import Input from '../Controls/Input';
 
-import ButtonContainer from './ButtonContainer';
-
 const Container = styled.div`
     height: 90%;
 
