@@ -34,6 +34,7 @@ function App() {
                     <Routes>
                         <Route path={ROUTES.HOME} element={<Home />} />
                         <Route path={ROUTES.LOGIN} element={<Auth />} />
+                        <Route path={ROUTES.SIGNUP} element={<Auth />} />
                         <Route
                             path={ROUTES.STATEMENTS}
                             element={

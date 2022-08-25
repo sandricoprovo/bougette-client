@@ -9,8 +9,13 @@ const LogInButtonStyled = styled(BaseButton)`
 
 interface LogInButtonProps {
     children: ReactNode;
+    type?: 'button' | 'submit' | 'reset';
 }
 
-export default function LogInButton({ children }: LogInButtonProps) {
-    return <LogInButtonStyled type="button">{children}</LogInButtonStyled>;
+export default function LogInButton({ children, type }: LogInButtonProps) {
+    return (
+        <LogInButtonStyled type={type ?? 'button'}>
+            {children}
+        </LogInButtonStyled>
+    );
 }
