@@ -15,6 +15,7 @@ const FormLabel = styled.label`
 interface InputProps {
     label: string;
     type: string;
+    name: string;
     placeholder: string;
     register: any;
     error: any;
@@ -22,13 +23,14 @@ interface InputProps {
 
 export default function Input({
     label,
+    name,
     type,
     placeholder,
     register,
     error,
 }: InputProps) {
     return (
-        <FormLabel htmlFor={label.toLowerCase()}>
+        <FormLabel htmlFor={name}>
             {label}
             <input
                 type={type.toLowerCase()}

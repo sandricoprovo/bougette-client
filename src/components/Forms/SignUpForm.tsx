@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
-import { LogInButton, CancelButton } from '../../Buttons';
-import { HeaderFont } from '../../Typography';
-import Input from '../Controls/Input';
+import { LogInButton, CancelButton } from '../Buttons';
+import { HeaderFont } from '../Typography';
+
+import Input from './Controls/Input';
 
 const Container = styled.div`
     height: 90%;
@@ -20,7 +21,7 @@ const Container = styled.div`
     }
 `;
 
-export default function LoginForm() {
+export default function SignUpForm() {
     const {
         register,
         handleSubmit,
@@ -33,10 +34,27 @@ export default function LoginForm() {
 
     return (
         <Container>
-            <HeaderFont tag="h2">Login Below</HeaderFont>
+            <HeaderFont tag="h2">Sign Up Below</HeaderFont>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
+                    label="First Name"
+                    name="firstName"
+                    placeholder="Enter first name"
+                    register={register('firstName', { required: true })}
+                    type="text"
+                    error={errors.firstName}
+                />
+                <Input
+                    label="Last Name"
+                    name="lastName"
+                    placeholder="Enter Last name"
+                    register={register('lastName', { required: true })}
+                    type="text"
+                    error={errors.lastName}
+                />
+                <Input
                     label="Email"
+                    name="email"
                     placeholder="Enter Email"
                     register={register('email', { required: true })}
                     type="email"
@@ -44,6 +62,7 @@ export default function LoginForm() {
                 />
                 <Input
                     label="Password"
+                    name="password"
                     placeholder="Enter password"
                     register={register('password', { required: true })}
                     type="password"

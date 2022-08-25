@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router';
 
-import LoginForm from '../components/Forms/Login/LogInForm';
-import SignUpForm from '../components/Forms/SignUp/SignUpForm';
+import LoginForm from '../components/Forms/LogInForm';
+import SignUpForm from '../components/Forms/SignUpForm';
 
 import ROUTES from './routes';
 
