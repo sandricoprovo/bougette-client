@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
+import SignInForm from '../components/Forms/SignIn/SignInForm';
+
 const Container = styled.div``;
 
 export default function Auth() {
     return (
         <Container>
-            <h1>Auth Page</h1>
+            <SignInForm />
         </Container>
     );
 }

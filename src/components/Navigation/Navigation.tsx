@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import mockNavLinks from '../../mock/mockNav';
+import { ROUTES } from '../../routes';
 
 import NavigationItem from './NavigationItem';
 import NavigationDrawer from './NavigationDrawer';
@@ -28,14 +28,21 @@ function Navigation() {
         setIsDrawerOpen(!isDrawerOpen);
     }
 
-    const navListItems = mockNavLinks.map((link, index) => (
-        <NavigationItem
-            key={index}
-            text={link.text}
-            url={link.url}
-            toggleDrawer={isMobileWidth ? toggleDrawer : undefined}
-        />
-    ));
+    const navListItems = Object.entries(ROUTES).map((route) => {
+        const [page, url] = route as [string, string];
+
+        // Removes any non-static routes.
+        if (page.toLowerCase() === 'statement') return;
+
+        return (
+            <NavigationItem
+                key={`${page}_${url}`}
+                text={page}
+                url={url}
+                toggleDrawer={isMobileWidth ? toggleDrawer : undefined}
+            />
+        );
+    });
 
     return !isMobileWidth ? (
         <NavigationStyled>
