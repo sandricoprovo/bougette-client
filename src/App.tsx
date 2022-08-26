@@ -44,7 +44,7 @@ function App() {
                             }
                         />
                         <Route
-                            path={`${ROUTES.STATEMENT}/:statementId`}
+                            path={`${ROUTES.STATEMENTS}/:statementId`}
                             element={
                                 <PrivateRoute>
                                     <Statement />
