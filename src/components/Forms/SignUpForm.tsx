@@ -1,8 +1,14 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@apollo/client';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
+import { SignUpInput } from '../../types/SignUpInput';
+import { SIGN_UP_USER } from '../../Apollo/mutations';
 import { LogInButton, CancelButton } from '../Buttons';
 import { HeaderFont } from '../Typography';
+import ROUTES from '../../routes/routes';
 
 import Input from './Controls/Input';
 
@@ -26,11 +32,29 @@ export default function SignUpForm() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm<SignUpInput>();
 
-    function onSubmit(data: any) {
-        console.log(data);
+    const [
+        createNewUser,
+        { loading, data = { signUpUser: { success: false } } },
+    ] = useMutation<{
+        signUpUser: { success: boolean };
+    }>(SIGN_UP_USER);
+
+    const navigate = useNavigate();
+
+    // Handles submitting form inputs to backend to create user account.
+    function onSubmit(formInputs: SignUpInput) {
+        // TODO: Sanitize imports
+        createNewUser({ variables: { userInfo: formInputs } });
     }
+
+    useEffect(() => {
+        if (loading || !data) return;
+        if (!data.signUpUser.success) return;
+        // Navigates if user creation was successful.
+        navigate(ROUTES.STATEMENTS);
+    }, [data, loading]);
 
     return (
         <Container>
