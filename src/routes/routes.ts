@@ -8,7 +8,7 @@ interface Routes {
 const ROUTES: Routes = Object.freeze({
     HOME: '/',
     LOGIN: '/login',
-    SIGNUP: 'signup',
+    SIGNUP: '/signup',
     STATEMENTS: '/statements',
 });
 

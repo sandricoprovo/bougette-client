@@ -1,6 +1,10 @@
 import { Navigate } from 'react-router-dom';
+import { useLazyQuery } from '@apollo/client';
+import { useEffect, useRef } from 'react';
 
-import { useAppSelector } from '../hooks/hooks';
+import { updateAuthState } from '../redux/slices/authenticationSlice';
+import { useAppSelector, useAppDispatch } from '../hooks/hooks';
+import { VERIFY_TOKEN } from '../apollo/queries';
 
 import ROUTES from './routes';
 
@@ -9,17 +13,50 @@ interface PrivateRouteProps {
 }
 
 export default function PrivateRoute({ children }: PrivateRouteProps) {
+    // Checks in memory authentication from previous sign up or login.
     const { hasAuthenticated } = useAppSelector(
         (state) => state.authentication
     );
+    const dispatch = useAppDispatch();
+    const didAttemptVerification = useRef(false);
 
-    // Redirects the user to the auth page if they are not currently logged in.
-    if (!hasAuthenticated) {
-        return <Navigate to={ROUTES.LOGIN} replace />;
+    // Verifies the cookie token.
+    const [
+        verifyToken,
+        {
+            loading,
+            data: { verifyToken: { success: isValidToken } } = {
+                verifyToken: { success: false },
+            },
+        },
+    ] = useLazyQuery<{
+        verifyToken: { success: boolean };
+    }>(VERIFY_TOKEN, {
+        fetchPolicy: 'network-only',
+    });
+
+    useEffect(() => {
+        if (loading) return;
+
+        if (!hasAuthenticated && !isValidToken) {
+            // Performs a verification check on the auth token.
+            didAttemptVerification.current = true;
+            verifyToken();
+        } else if (isValidToken) {
+            // Updates auth state variable in store.
+            const isVerified = didAttemptVerification.current && isValidToken;
+            dispatch(updateAuthState(isVerified));
+        }
+    }, [loading, isValidToken]);
+
+    // Renders a temp loading screen while the auth check runs.
+    if (loading || (!hasAuthenticated && !didAttemptVerification.current)) {
+        return <h1>Loading...</h1>;
     }
 
-    // TODO: Make sure only user can only see their own statement pages
-
-    // If logged in, the user is proceeds to the requested page.
-    return children;
+    return hasAuthenticated || isValidToken ? (
+        children
+    ) : (
+        <Navigate to={ROUTES.LOGIN} replace />
+    );
 }

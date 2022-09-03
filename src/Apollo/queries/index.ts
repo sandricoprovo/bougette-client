@@ -1,3 +1,4 @@
 import { GET_STATEMENTS } from './GET_STATEMENTS';
+import { VERIFY_TOKEN } from './VERIFY_TOKEN';
 
-export { GET_STATEMENTS };
+export { GET_STATEMENTS, VERIFY_TOKEN };
