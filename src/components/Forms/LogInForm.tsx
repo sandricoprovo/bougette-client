@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@apollo/client';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
+import { LOG_IN_USER } from '../../Apollo/mutations';
 import { LogInButton, CancelButton } from '../Buttons';
 import { HeaderFont } from '../Typography';
+import ROUTES from '../../routes/routes';
 
 import Input from './Controls/Input';
 
@@ -21,16 +26,43 @@ const Container = styled.div`
     }
 `;
 
+interface LogInCredentials {
+    email: string;
+    password: string;
+}
+
 export default function LoginForm() {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm<LogInCredentials>();
 
-    function onSubmit(data: any) {
-        console.log(data);
+    const [
+        logInUser,
+        {
+            loading,
+            data = {
+                loginUser: { success: false },
+            },
+        },
+    ] = useMutation<{
+        loginUser: { success: boolean };
+    }>(LOG_IN_USER);
+
+    const navigate = useNavigate();
+
+    function onSubmit(credentials: LogInCredentials) {
+        console.log(credentials);
+        logInUser({ variables: { ...credentials } });
     }
+
+    useEffect(() => {
+        if (loading || !data) return;
+        if (!data?.loginUser?.success) return;
+        // Navigates if user creation was successful.
+        navigate(ROUTES.STATEMENTS);
+    }, [data, loading]);
 
     return (
         <Container>
