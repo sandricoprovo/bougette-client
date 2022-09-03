@@ -1,5 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
+import { useAppSelector } from '../hooks/hooks';
+
 import ROUTES from './routes';
 
 interface PrivateRouteProps {
@@ -7,10 +9,12 @@ interface PrivateRouteProps {
 }
 
 export default function PrivateRoute({ children }: PrivateRouteProps) {
-    const authUser = true;
+    const { hasAuthenticated } = useAppSelector(
+        (state) => state.authentication
+    );
 
     // Redirects the user to the auth page if they are not currently logged in.
-    if (!authUser) {
+    if (!hasAuthenticated) {
         return <Navigate to={ROUTES.LOGIN} replace />;
     }
 

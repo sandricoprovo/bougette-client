@@ -4,7 +4,9 @@ import { useMutation } from '@apollo/client';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { LOG_IN_USER } from '../../Apollo/mutations';
+import { useAppDispatch } from '../../hooks/hooks';
+import { updateAuthState } from '../../redux/slices/authenticationSlice';
+import { LOG_IN_USER } from '../../apollo/mutations';
 import { LogInButton, CancelButton } from '../Buttons';
 import { HeaderFont } from '../Typography';
 import ROUTES from '../../routes/routes';
@@ -51,9 +53,9 @@ export default function LoginForm() {
     }>(LOG_IN_USER);
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     function onSubmit(credentials: LogInCredentials) {
-        console.log(credentials);
         logInUser({ variables: { ...credentials } });
     }
 
@@ -62,6 +64,8 @@ export default function LoginForm() {
         if (!data?.loginUser?.success) return;
         // Navigates if user creation was successful.
         navigate(ROUTES.STATEMENTS);
+        // Updates the login state in memory
+        dispatch(updateAuthState(data.loginUser.success));
     }, [data, loading]);
 
     return (

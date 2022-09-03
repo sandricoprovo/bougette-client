@@ -4,8 +4,10 @@ import { useMutation } from '@apollo/client';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
+import { useAppDispatch } from '../../hooks/hooks';
+import { updateAuthState } from '../../redux/slices/authenticationSlice';
 import { SignUpInput } from '../../types/SignUpInput';
-import { SIGN_UP_USER } from '../../Apollo/mutations';
+import { SIGN_UP_USER } from '../../apollo/mutations';
 import { LogInButton, CancelButton } from '../Buttons';
 import { HeaderFont } from '../Typography';
 import ROUTES from '../../routes/routes';
@@ -42,6 +44,7 @@ export default function SignUpForm() {
     }>(SIGN_UP_USER);
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     // Handles submitting form inputs to backend to create user account.
     function onSubmit(formInputs: SignUpInput) {
@@ -54,6 +57,8 @@ export default function SignUpForm() {
         if (!data.signUpUser.success) return;
         // Navigates if user creation was successful.
         navigate(ROUTES.STATEMENTS);
+        // Updates the login state in memory
+        dispatch(updateAuthState(data.signUpUser.success));
     }, [data, loading]);
 
     return (
