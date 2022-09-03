@@ -2,17 +2,16 @@ import { Navigate } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { useEffect, useRef } from 'react';
 
-import { updateAuthState } from '../redux/slices/authenticationSlice';
-import { useAppSelector, useAppDispatch } from '../hooks/hooks';
-import { VERIFY_TOKEN } from '../apollo/queries';
+import { updateAuthState } from './redux/slices/authenticationSlice';
+import { useAppSelector, useAppDispatch } from './hooks/hooks';
+import { VERIFY_TOKEN } from './apollo/queries';
+import ROUTES from './routes/routes';
 
-import ROUTES from './routes';
-
-interface PrivateRouteProps {
+interface PrivateWrapperProps {
     children: JSX.Element;
 }
 
-export default function PrivateRoute({ children }: PrivateRouteProps) {
+export default function PrivateWrapper({ children }: PrivateWrapperProps) {
     // Checks in memory authentication from previous sign up or login.
     const { hasAuthenticated } = useAppSelector(
         (state) => state.authentication

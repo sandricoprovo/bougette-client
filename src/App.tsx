@@ -10,16 +10,9 @@ import Header from './components/Header';
 import Layout from './components/Layout';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation/Navigation';
+import PrivateWrapper from './PrivateWrapper';
 // Pages //
-import {
-    Home,
-    Auth,
-    Statements,
-    Page404,
-    Statement,
-    PrivateRoute,
-    ROUTES,
-} from './routes';
+import { Home, Auth, Statements, Page404, Statement, ROUTES } from './routes';
 
 function App() {
     useEffect(() => {
@@ -47,17 +40,17 @@ function App() {
                                 <Route
                                     path={ROUTES.STATEMENTS}
                                     element={
-                                        <PrivateRoute>
+                                        <PrivateWrapper>
                                             <Statements />
-                                        </PrivateRoute>
+                                        </PrivateWrapper>
                                     }
                                 />
                                 <Route
                                     path={`${ROUTES.STATEMENTS}/:statementId`}
                                     element={
-                                        <PrivateRoute>
+                                        <PrivateWrapper>
                                             <Statement />
-                                        </PrivateRoute>
+                                        </PrivateWrapper>
                                     }
                                 />
                                 <Route path="*" element={<Page404 />} />
