@@ -15,6 +15,7 @@ const Container = styled.div`
     gap: 2rem;
 
     & > div:nth-child(1) {
+        padding-top: 2rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
