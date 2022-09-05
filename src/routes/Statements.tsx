@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
-import { useEffect } from 'react';
 
 import StatementsList from '../components/Statements/StatementsList';
 import StatementsListItem from '../components/Statements/StatementListItem';
@@ -31,10 +30,6 @@ export default function Statements() {
 
     const { showAddStatementModal } = useAppSelector((state) => state.ui);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        console.log(showAddStatementModal);
-    }, [showAddStatementModal]);
 
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>Error...</h1>;
