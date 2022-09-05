@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
+import { useEffect } from 'react';
 
 import StatementsList from '../components/Statements/StatementsList';
 import StatementsListItem from '../components/Statements/StatementListItem';
 import { GET_STATEMENTS } from '../apollo/queries';
 import { Statement } from '../types/Statement';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { toggleAddStatement } from '../redux/slices/uiSlice';
+import CreateStatement from '../components/Features/CreateStatement';
 
 const Container = styled.div`
     display: flex;
@@ -25,17 +29,35 @@ export default function Statements() {
         error,
     } = useQuery<{ allStatements: Statement[] }>(GET_STATEMENTS);
 
+    const { showAddStatementModal } = useAppSelector((state) => state.ui);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        console.log(showAddStatementModal);
+    }, [showAddStatementModal]);
+
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>Error...</h1>;
 
     // TODO: Add empty list component.
 
+    function toggleAddStatementForm() {
+        dispatch(toggleAddStatement());
+    }
+
     return (
         <Container>
             <div>
                 <h1>Statements</h1>
-                <button type="button">Add Statement</button>
+                <button type="button" onClick={toggleAddStatementForm}>
+                    Create Statement
+                </button>
             </div>
+            {showAddStatementModal && (
+                <CreateStatement
+                    toggleAddStatementForm={toggleAddStatementForm}
+                />
+            )}
             <StatementsList>
                 {allStatements &&
                     allStatements.map((statement) => {
