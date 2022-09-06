@@ -102,8 +102,11 @@ export default function StatementEditor({
                 Label
                 <input
                     placeholder="Enter label here"
-                    {...register('label', { required: true })}
+                    {...register('label', {
+                        required: 'This field is required.',
+                    })}
                 />
+                {errors.label && <span>{errors.label.message}</span>}
             </label>
             <button type="submit">Submit</button>
         </Form>

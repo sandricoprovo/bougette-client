@@ -45,6 +45,8 @@ export default function Statement() {
 
     const { createdOn, expenses, incomes, label: statementLabel } = statement;
 
+    // TODO: Show something on empty screen if no incomes or expenses
+
     return (
         <Container>
             <StatementHeader
@@ -61,9 +63,9 @@ export default function Statement() {
                     closeEditorHandler={editStatement}
                 />
             )}
-            <LineItemList title="Money In">
-                {incomes &&
-                    incomes.map((income) => {
+            {incomes.length > 0 && (
+                <LineItemList title="Money In">
+                    {incomes.map((income) => {
                         const {
                             label,
                             amount,
@@ -84,10 +86,11 @@ export default function Statement() {
                             />
                         );
                     })}
-            </LineItemList>
-            <LineItemList title="Money Out">
-                {expenses &&
-                    expenses.map((expense) => {
+                </LineItemList>
+            )}
+            {expenses.length > 0 && (
+                <LineItemList title="Money Out">
+                    {expenses.map((expense) => {
                         const {
                             label,
                             amount,
@@ -108,7 +111,8 @@ export default function Statement() {
                             />
                         );
                     })}
-            </LineItemList>
+                </LineItemList>
+            )}
         </Container>
     );
 }
