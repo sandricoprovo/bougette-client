@@ -9,3 +9,7 @@ export interface Statement {
     incomes: Income[];
     expenses: Expense[];
 }
+
+export interface StatementInput {
+    label: string;
+}

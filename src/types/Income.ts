@@ -7,3 +7,11 @@ export interface Income {
     isRecurring: boolean;
     depositDate: number;
 }
+
+export interface IncomeInput {
+    label?: string;
+    amount?: number;
+    type?: string;
+    depositDate?: number;
+    isRecurring?: boolean;
+}

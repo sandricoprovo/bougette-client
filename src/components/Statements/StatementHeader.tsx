@@ -8,7 +8,8 @@ const Container = styled.div`
     justify-content: flex-start;
     gap: 1rem;
 
-    & > div:nth-of-type(1) {
+    & > div:nth-of-type(1),
+    & > div:nth-of-type(3) {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
@@ -27,6 +28,7 @@ interface StatementHeaderProps {
     totalIncome: number;
     totalExpenses: number;
     createdOn: string;
+    showStatementEditor: () => void;
 }
 
 export default function StatementHeader({
@@ -35,17 +37,23 @@ export default function StatementHeader({
     totalExpenses = 0,
     totalIncome = 0,
     createdOn,
+    showStatementEditor,
 }: StatementHeaderProps) {
     return (
         <Container>
             <div>
                 <h1>{name}</h1>
-                <p>Created On: {createdOn}</p>
+                <button type="button" onClick={showStatementEditor}>
+                    Edit
+                </button>
             </div>
-            <p>Balance: {balance}</p>
             <div>
                 <p>Total Income: {totalIncome} </p>
                 <p>Total Expenses: {totalExpenses} </p>
+            </div>
+            <div>
+                <p>Balance: {balance}</p>
+                <p>Created On: {createdOn}</p>
             </div>
         </Container>
     );
