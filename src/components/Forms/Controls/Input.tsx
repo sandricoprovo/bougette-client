@@ -14,11 +14,11 @@ const FormLabel = styled.label`
 
 interface InputProps {
     label: string;
-    type: string;
     name: string;
     placeholder: string;
     register: any;
-    error: any;
+    error: string;
+    type?: string;
 }
 
 export default function Input({
@@ -33,11 +33,11 @@ export default function Input({
         <FormLabel htmlFor={name}>
             {label}
             <input
-                type={type.toLowerCase()}
+                type={type ? type.toLowerCase() : null}
                 placeholder={placeholder}
                 {...register}
             />
-            {error && <span>Your {label.toLowerCase()} is required.</span>}
+            {error && <span>{error}</span>}
         </FormLabel>
     );
 }

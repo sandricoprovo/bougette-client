@@ -9,7 +9,11 @@ import { GET_STATEMENT } from '../apollo/queries';
 import { Statement as IStatement } from '../types/Statement';
 import StatementEditor from '../components/Features/StatementEditor';
 import { useAppSelector, useAppDispatch } from '../hooks/hooks';
-import { toggleStatementEditor } from '../redux/slices/uiSlice';
+import {
+    toggleStatementEditor,
+    toggleLineItemCreator,
+} from '../redux/slices/uiSlice';
+import LineItemCreator from '../components/Features/LineItemCreator';
 
 const Container = styled.div`
     position: relative;
@@ -20,7 +24,9 @@ const Container = styled.div`
 `;
 
 export default function Statement() {
-    const { showStatementEditor } = useAppSelector((state) => state.ui);
+    const { showStatementEditor, lineItemCreator } = useAppSelector(
+        (state) => state.ui
+    );
     const dispatch = useAppDispatch();
     // Grabs statementId from url via react router.
     const { statementId } = useParams();
@@ -36,9 +42,17 @@ export default function Statement() {
         dispatch(toggleStatementEditor());
     }
 
-    // function editLineItem() {
-    //     dispatch(toggleLineItemEditor());
-    // }
+    function createIncome() {
+        dispatch(toggleLineItemCreator('income'));
+    }
+
+    function createExpense() {
+        dispatch(toggleLineItemCreator('expense'));
+    }
+
+    function closeLineItemEditor() {
+        dispatch(toggleLineItemCreator('expense'));
+    }
 
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>Error...</h1>;
@@ -63,9 +77,15 @@ export default function Statement() {
                     closeEditorHandler={editStatement}
                 />
             )}
-            {incomes.length > 0 && (
-                <LineItemList title="Money In">
-                    {incomes.map((income) => {
+            {lineItemCreator.show && (
+                <LineItemCreator
+                    lineItemType={lineItemCreator.type}
+                    closeEditorHandler={closeLineItemEditor}
+                />
+            )}
+            <LineItemList title="Incomes">
+                {incomes &&
+                    incomes.map((income) => {
                         const {
                             label,
                             amount,
@@ -86,11 +106,13 @@ export default function Statement() {
                             />
                         );
                     })}
-                </LineItemList>
-            )}
-            {expenses.length > 0 && (
-                <LineItemList title="Money Out">
-                    {expenses.map((expense) => {
+                <button type="button" onClick={createIncome}>
+                    +
+                </button>
+            </LineItemList>
+            <LineItemList title="Expenses">
+                {expenses &&
+                    expenses.map((expense) => {
                         const {
                             label,
                             amount,
@@ -111,8 +133,10 @@ export default function Statement() {
                             />
                         );
                     })}
-                </LineItemList>
-            )}
+                <button type="button" onClick={createExpense}>
+                    +
+                </button>
+            </LineItemList>
         </Container>
     );
 }
