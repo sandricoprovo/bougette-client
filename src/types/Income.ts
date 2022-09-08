@@ -8,6 +8,14 @@ export interface Income {
     depositDate: number;
 }
 
+export interface IncomeFormInput {
+    label?: string;
+    amount?: string;
+    type?: string;
+    depositDate?: string;
+    isRecurring?: string;
+}
+
 export interface IncomeInput {
     label?: string;
     amount?: number;

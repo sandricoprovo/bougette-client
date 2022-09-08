@@ -3,6 +3,7 @@ import { LOG_IN_USER } from './LOG_IN_USER';
 import { CREATE_STATEMENT } from './CREATE_STATEMENT';
 import { DELETE_STATEMENT } from './DELETE_STATEMENT';
 import { UPDATE_STATEMENT } from './UPDATE_STATEMENT';
+import { CREATE_INCOME } from './CREATE_INCOME';
 
 export {
     SIGN_UP_USER,
@@ -10,4 +11,5 @@ export {
     CREATE_STATEMENT,
     DELETE_STATEMENT,
     UPDATE_STATEMENT,
+    CREATE_INCOME,
 };

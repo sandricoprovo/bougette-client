@@ -7,3 +7,11 @@ export interface Expense {
     isRecurring: boolean;
     withdrawDate: number;
 }
+
+export interface ExpenseInput {
+    label?: string;
+    amount?: number;
+    type?: string;
+    withdrawDate?: number;
+    isRecurring?: boolean;
+}
