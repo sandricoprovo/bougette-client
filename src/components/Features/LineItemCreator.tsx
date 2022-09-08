@@ -69,7 +69,7 @@ export default function LineItemCreator({
     } = useForm();
     const { statementId } = useParams();
 
-    const [addIncome, { loading, data, error }] = useMutation<{
+    const [addIncome, { loading, data }] = useMutation<{
         addIncomes: { succeeded: boolean };
     }>(CREATE_INCOME, {
         refetchQueries: [GET_STATEMENT],
@@ -111,6 +111,12 @@ export default function LineItemCreator({
     ];
 
     const dateType = lineItemType === 'income' ? 'depositDate' : 'withdrawDate';
+
+    // Handles closing the form if mutation runs successfully
+    useEffect(() => {
+        if (!loading && !data?.addIncomes.succeeded) return;
+        closeEditorHandler();
+    }, [data]);
 
     return (
         <Form onSubmit={handleSubmit(submitHandler)}>
