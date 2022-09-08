@@ -9,8 +9,8 @@ import Input from '../Forms/Controls/Input';
 import Select from '../Forms/Controls/Select';
 import RadioList from '../Forms/Controls/RadioList';
 import { IncomeFormInput, IncomeInput } from '../../types/Income';
-import { ExpenseInput } from '../../types/Expense';
-import { CREATE_INCOME } from '../../apollo/mutations';
+import { ExpenseFormInput, ExpenseInput } from '../../types/Expense';
+import { CREATE_EXPENSE, CREATE_INCOME } from '../../apollo/mutations';
 import { GET_STATEMENT } from '../../apollo/queries';
 import DayPicker from '../Forms/Controls/DayPicker';
 
@@ -69,11 +69,18 @@ export default function LineItemCreator({
     } = useForm();
     const { statementId } = useParams();
 
-    const [addIncome, { loading, data }] = useMutation<{
-        addIncomes: { succeeded: boolean };
-    }>(CREATE_INCOME, {
-        refetchQueries: [GET_STATEMENT],
-    });
+    const [addIncome, { loading: incomeLoading, data: incomeData }] =
+        useMutation<{
+            addIncomes: { succeeded: boolean };
+        }>(CREATE_INCOME, {
+            refetchQueries: [GET_STATEMENT],
+        });
+    const [addExpense, { loading: expenseLoading, data: expenseData }] =
+        useMutation<{
+            addExpenses: { succeeded: boolean };
+        }>(CREATE_EXPENSE, {
+            refetchQueries: [GET_STATEMENT],
+        });
 
     function incomeSubmitHandler(formInputs: IncomeFormInput) {
         const { depositDate, isRecurring, amount, ...rest } = formInputs;
@@ -94,7 +101,24 @@ export default function LineItemCreator({
         }).catch((err: ApolloError) => console.log(err));
     }
 
-    function expenseSubmitHandler(formInputs: ExpenseInput) {}
+    function expenseSubmitHandler(formInputs: ExpenseFormInput) {
+        const { withdrawDate, isRecurring, amount, ...rest } = formInputs;
+        // Shapes the deposit date into a number for submission.
+        const newExpense: ExpenseInput = {
+            ...rest,
+            withdrawDate: parseInt(withdrawDate || '1'),
+            amount: parseInt(amount || '0'),
+            isRecurring: isRecurring === 'true',
+        };
+
+        console.log(statementId, newExpense);
+        addExpense({
+            variables: {
+                statementId,
+                expenses: [newExpense],
+            },
+        }).catch((err: ApolloError) => console.log(err));
+    }
 
     const submitHandler =
         lineItemType === 'income' ? incomeSubmitHandler : expenseSubmitHandler;
@@ -112,11 +136,15 @@ export default function LineItemCreator({
 
     const dateType = lineItemType === 'income' ? 'depositDate' : 'withdrawDate';
 
-    // Handles closing the form if mutation runs successfully
+    // Handles closing the form if either mutation runs successfully
     useEffect(() => {
-        if (!loading && !data?.addIncomes.succeeded) return;
+        if (!incomeLoading && !incomeData?.addIncomes.succeeded) return;
         closeEditorHandler();
-    }, [data]);
+    }, [incomeLoading, incomeData]);
+    useEffect(() => {
+        if (!expenseLoading && !expenseData?.addExpenses.succeeded) return;
+        closeEditorHandler();
+    }, [expenseLoading, expenseData]);
 
     return (
         <Form onSubmit={handleSubmit(submitHandler)}>

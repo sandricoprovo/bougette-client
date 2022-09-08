@@ -4,6 +4,7 @@ import { CREATE_STATEMENT } from './CREATE_STATEMENT';
 import { DELETE_STATEMENT } from './DELETE_STATEMENT';
 import { UPDATE_STATEMENT } from './UPDATE_STATEMENT';
 import { CREATE_INCOME } from './CREATE_INCOME';
+import { CREATE_EXPENSE } from './CREATE_EXPENSE';
 
 export {
     SIGN_UP_USER,
@@ -12,4 +13,5 @@ export {
     DELETE_STATEMENT,
     UPDATE_STATEMENT,
     CREATE_INCOME,
+    CREATE_EXPENSE,
 };

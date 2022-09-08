@@ -8,6 +8,14 @@ export interface Expense {
     withdrawDate: number;
 }
 
+export interface ExpenseFormInput {
+    label?: string;
+    amount?: string;
+    type?: string;
+    withdrawDate?: string;
+    isRecurring?: string;
+}
+
 export interface ExpenseInput {
     label?: string;
     amount?: number;
